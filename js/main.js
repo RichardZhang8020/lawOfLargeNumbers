@@ -5,26 +5,32 @@ import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js'
 
 const canvasEl = document.querySelector('#canvas');
 const scoreResult = document.querySelector('#score-result');
-const rollBtn = document.querySelector('#roll-btn');
+const rollOne = document.querySelector('#roll-one');
+const rollTen = document.querySelector('#roll-ten');
+const rollHundred = document.querySelector('#roll-hundred');
+const rollThousand = document.querySelector('#roll-thousand');
 
 let renderer, scene, camera, diceMesh, physicsWorld;
 
-const params = {
-    numberOfDice: 2,
+let params = {
+    numberOfDice: 1,
     segments: 40,
     edgeRadius: .07,
     notchRadius: .12,
     notchDepth: .1,
 };
 
-const diceArray = [];
+let diceArray = [];
 
 initPhysics();
 initScene();
 
 window.addEventListener('resize', updateSceneSize);
-window.addEventListener('dblclick', throwDice);
-rollBtn.addEventListener('click', throwDice);
+//window.addEventListener('dblclick', throwDice(1));
+rollOne.addEventListener('click', function(){throwDice(1)});
+rollTen.addEventListener('click', function(){throwDice(10)});
+rollHundred.addEventListener('click', function(){throwDice(100)});
+rollThousand.addEventListener('click', function(){throwDice(1000)});
 
 function initScene() {
 
@@ -56,14 +62,8 @@ function initScene() {
     
     createFloor();
     diceMesh = createDiceMesh();
-    for (let i = 0; i < params.numberOfDice; i++) {
-        diceArray.push(createDice());
-        addDiceEvents(diceArray[i]);
-    }
 
-    throwDice();
-
-    render();
+    throwDice(1);
 }
 
 function initPhysics() {
@@ -123,11 +123,20 @@ function createDice() {
     const body = new CANNON.Body({
         mass: 1,
         shape: new CANNON.Box(new CANNON.Vec3(.5, .5, .5)),
-        sleepTimeLimit: .1
+        sleepTimeLimit: .1,
+        world: null
     });
     physicsWorld.addBody(body);
 
     return {mesh, body};
+}
+
+function removeDice() {
+    for (let i = 0; i < diceArray.length; i++) {
+        scene.remove(diceArray[i].mesh)
+        physicsWorld.removeBody(diceArray[i].body);
+    }
+    diceArray = [];
 }
 
 function createBoxGeometry() {
@@ -294,7 +303,16 @@ function updateSceneSize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-function throwDice() {
+function throwDice(numberOfDice) {
+    params.numberOfDice = numberOfDice;
+
+    removeDice();
+
+    for (let i = 0; i < params.numberOfDice; i++) {
+        diceArray.push(createDice());
+        addDiceEvents(diceArray[i]);
+    }
+
     scoreResult.innerHTML = '';
 
     diceArray.forEach((d, dIdx) => {
@@ -316,4 +334,8 @@ function throwDice() {
 
         d.body.allowSleep = true;
     });
+
+    render();
+
+    console.log("diceArray ThrowDice: " + diceArray);
 }

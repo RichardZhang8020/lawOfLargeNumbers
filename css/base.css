@@ -179,7 +179,7 @@ main {
 	flex: 1;
 	display: flex;
 	justify-content: center;
-	align-items: center;
+	/* align-items: center; */
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -216,7 +216,7 @@ canvas {
 .ui-controls #score-result:after {
 	content: "\200b";
 }
-.ui-controls #roll-btn {
+.ui-controls button {
 	background-color: #273e9a;
 	font-weight: bold;
 	color: #ffffff;
@@ -230,9 +230,9 @@ canvas {
 	transition: background-color 0.2s, transform 0.1s;
 	pointer-events: auto;
 }
-.ui-controls #roll-btn:active {
+.ui-controls button:active {
 	transform: translateY(2px);
 }
-.ui-controls #roll-btn:hover {
+.ui-controls button:hover {
 	background-color: #3737af;
 }
