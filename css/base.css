@@ -93,8 +93,8 @@ a:focus-visible {
 }
 
 main {
-	display: flex;
-	flex-direction: column;
+	/* display: flex; */
+	/* flex-direction: column; */
 	height: 100vh;
 }
 
@@ -178,7 +178,7 @@ main {
 .content {
 	flex: 1;
 	display: flex;
-	justify-content: center;
+	/* justify-content: center; */
 	/* align-items: center; */
 	position: fixed;
 	top: 0;
@@ -196,7 +196,7 @@ canvas {
 .ui-controls {
 	position: relative;
 	width: 100%;
-	max-width: 500px;
+	/* max-width: 2000px; */
 	font-family: inherit;
 	user-select: none;
 	line-height: 1.5;
@@ -206,10 +206,12 @@ canvas {
 
 .score {
 	font-weight: bold;
+	padding-top: 20px;
 }
 
 .ui-controls #score-result {
-	display: inline-block;
+	word-wrap: break-word; 
+	/* display: inline-block; */
 	min-width: 1.8em;
 	color: #d45f2e;
 }

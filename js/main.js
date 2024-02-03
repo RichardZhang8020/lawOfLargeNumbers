@@ -5,6 +5,7 @@ import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js'
 
 const canvasEl = document.querySelector('#canvas');
 const scoreResult = document.querySelector('#score-result');
+const averageResult = document.querySelector('#average-result');
 const rollOne = document.querySelector('#roll-one');
 const rollTen = document.querySelector('#roll-ten');
 const rollHundred = document.querySelector('#roll-hundred');
@@ -21,6 +22,8 @@ let params = {
 };
 
 let diceArray = [];
+let sumOfScores = 0;
+let scoresCount = 0;
 
 initPhysics();
 initScene();
@@ -264,7 +267,9 @@ function addDiceEvents(dice) {
                 showRollResults(6);
             } else {
                 // landed on edge => wait to fall on side and fire the event again
-                dice.body.allowSleep = true;
+                //dice.body.allowSleep = true;
+                // Get a random integer between 1 and 6 because I don't know how to solve the problem when it gets permanently stuck on the edge
+                showRollResults(getRandomInt(1, 6));
             }
         } else if (isHalfPi(euler.z)) {
             showRollResults(2);
@@ -272,12 +277,28 @@ function addDiceEvents(dice) {
             showRollResults(5);
         } else {
             // landed on edge => wait to fall on side and fire the event again
-            dice.body.allowSleep = true;
+            //dice.body.allowSleep = true;
+            showRollResults(getRandomInt(1, 6));
         }
+
+        console.log("ADD DICE EVENTS!!!")
+
+        averageResult.innerHTML = (sumOfScores/scoresCount).toFixed(3);; 
     });
 }
 
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function showRollResults(score) {
+    sumOfScores += score;
+    
+    scoresCount += 1;
+    console.log(scoresCount);
+
     if (scoreResult.innerHTML === '') {
         scoreResult.innerHTML += score;
     } else {
@@ -314,6 +335,9 @@ function throwDice(numberOfDice) {
     }
 
     scoreResult.innerHTML = '';
+    averageResult.innerHTML = '';
+    sumOfScores = 0;
+    scoresCount = 0;
 
     diceArray.forEach((d, dIdx) => {
 
