@@ -67,6 +67,8 @@ function initScene() {
     diceMesh = createDiceMesh();
 
     throwDice(1);
+
+    render();
 }
 
 function initPhysics() {
@@ -325,6 +327,7 @@ function updateSceneSize() {
 }
 
 function throwDice(numberOfDice) {
+    console.log("throwDice")
     params.numberOfDice = numberOfDice;
 
     removeDice();
@@ -358,8 +361,6 @@ function throwDice(numberOfDice) {
 
         d.body.allowSleep = true;
     });
-
-    render();
 
     console.log("diceArray ThrowDice: " + diceArray);
 }
