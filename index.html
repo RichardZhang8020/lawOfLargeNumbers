@@ -3,28 +3,32 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Three.js Dice Roller | Codrops</title>
+		<title>Law of Large Numbers</title>
 		<meta name="description" content="Demo for the tutorial on how to code a dice roller with Three.js and cannon-es" />
 		<meta name="keywords" content="3d dice, three.js, cannon-es, webgl, rolling dice" />
 		<meta name="author" content="Codrops" />
 		<link rel="shortcut icon" href="favicon.ico">
 		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 		<script>document.documentElement.className="js";var supportsCssVars=function(){var e,t=document.createElement("style");return t.innerHTML="root: { --tmp-var: bold; }",document.head.appendChild(t),e=!!(window.CSS&&window.CSS.supports&&window.CSS.supports("font-weight","var(--tmp-var)")),t.parentNode.removeChild(t),e};supportsCssVars()||alert("Please view this demo in a modern browser that supports CSS Variables.");</script>
 		<script src="//tympanus.net/codrops/adpacks/analytics.js"></script>
 	</head>
 	<body>
 		<main>
-			<div class="content">
+			<div class="content">	
 				<canvas id="canvas"></canvas>
 				<div class="ui-controls">
-					<button id="roll-one">Throw one dice</button>
-					<button id="roll-ten">Throw ten dice</button>
-					<button id="roll-hundred">Throw one hundred dice</button>
-					<button id="roll-thousand">Throw one thousand dice</button>
+					<button class="throw-button" id="roll-one">Throw one dice</button>
+					<button class="throw-button" id="roll-ten">Throw ten dice</button>
+					<button class="throw-button" id="roll-hundred">Throw one hundred dice</button>
+					<button class="throw-button" id="roll-thousand">Throw one thousand dice</button>
 					<div class="true-average">True average: 3.5 </div>
-					<div class="score">Score: <span id="score-result"></span></div>
+					<div class="score">
+						<i class="fa-solid fa-eye-slash" id="hide-scores"></i> 
+						Score: 
+						<span id="score-result"></span>
+					</div>
 					<div class="average">Average: <span id="average-result"></span></div>
-					<!-- <div></div> -->
 				</div>
 			</div>
 		</main>

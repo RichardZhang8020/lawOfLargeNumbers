@@ -10,6 +10,7 @@ const rollOne = document.querySelector('#roll-one');
 const rollTen = document.querySelector('#roll-ten');
 const rollHundred = document.querySelector('#roll-hundred');
 const rollThousand = document.querySelector('#roll-thousand');
+const hideScores = document.getElementById('hide-scores');
 
 let renderer, scene, camera, diceMesh, physicsWorld;
 
@@ -34,6 +35,15 @@ rollOne.addEventListener('click', function(){throwDice(1)});
 rollTen.addEventListener('click', function(){throwDice(10)});
 rollHundred.addEventListener('click', function(){throwDice(100)});
 rollThousand.addEventListener('click', function(){throwDice(1000)});
+hideScores.addEventListener('click', function(){
+    this.classList.toggle("fa-eye");
+    this.classList.toggle("fa-eye-slash", !this.classList.contains("fa-eye"));
+    if (scoreResult.style.display === "none") {
+        scoreResult.style.display = "inline";
+    } else {
+        scoreResult.style.display = "none";
+    }
+});
 
 function initScene() {
 
@@ -283,8 +293,6 @@ function addDiceEvents(dice) {
             showRollResults(getRandomInt(1, 6));
         }
 
-        console.log("ADD DICE EVENTS!!!")
-
         averageResult.innerHTML = (sumOfScores/scoresCount).toFixed(3);; 
     });
 }
@@ -296,10 +304,8 @@ function getRandomInt(min, max) {
 }
 
 function showRollResults(score) {
-    sumOfScores += score;
-    
+    sumOfScores += score;   
     scoresCount += 1;
-    console.log(scoresCount);
 
     if (scoreResult.innerHTML === '') {
         scoreResult.innerHTML += score;
